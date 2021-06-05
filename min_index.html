@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<script>
+  var auto,kulutus,kulutusBynopeusA,kulutusBynopeusB;function valinta(u){for(var t=1;t<=3;t++){var e=document.getElementById("auto"+t);u==t?e.classList.add("autovalintaValittu"):e.classList.remove("autovalintaValittu")}auto=u,laske()}function laske(){var u,t,e,n=document.getElementById("matka").value,a=document.getElementById("autoA").value,l=document.getElementById("autoB").value;switch(auto){case"1":kulutus=3;break;case"2":kulutus=3.5;break;case"3":kulutus=4}n&&a&&l&&auto&&0<a&&0<l&&0<n?(kulutusBynopeusA=kulutus+.009*a,kulutusBynopeusB=kulutus+.009*l,kulutusBynopeusA=Math.round(100*(kulutusBynopeusA+Number.EPSILON))/100,kulutusBynopeusB=Math.round(100*(kulutusBynopeusB+Number.EPSILON))/100,e=n/a*60,n=n/l*60,e=Math.round(100*(e+Number.EPSILON))/100,n=Math.round(100*(n+Number.EPSILON))/100,document.getElementById("matkanKesto").innerHTML="",document.getElementById("matkanKesto").innerHTML='<div class="tulosMuotoilu">Autolla A menee matkaan '+e+" minuuttia ja autolla B "+n+" minuuttia.</div>",document.getElementById("matkanKesto").innerHTML+='<div class="tulosMuotoilu">Auton A kulutus 100km matkalle annetulla nopeudella '+a+"km/h on "+kulutusBynopeusA+"l/100km ja autolla B "+kulutusBynopeusB+"l/100km.</div>",n<e?(u=e-n,u=Math.round(100*(u+Number.EPSILON))/100,t=kulutusBynopeusB-kulutusBynopeusA,t=Math.round(100*(t+Number.EPSILON))/100,document.getElementById("matkanKesto").innerHTML+='<div class="tulosMuotoilu">Auton B nopeudella ('+l+"km/h) henkilö olisi "+u+" minuuttia nopeammin perillä. Tähän kuluu "+t+" litraa enemmän polttoainetta.</div>"):(u=n-e,u=Math.round(100*(u+Number.EPSILON))/100,t=kulutusBynopeusB-kulutusBynopeusA,t=Math.round(100*(t+Number.EPSILON))/100,document.getElementById("matkanKesto").innerHTML+='<div class="tulosMuotoilu">Auton A nopeudella ('+a+"km/h) henkilö olisi "+u+" minuuttia nopeammin perillä.Tähän kuluu "+t+" litraa enemmän polttoainetta.</div>")):document.getElementById("matkanKesto").innerHTML='<div class="tulosMuotoilu">Vielä ei riittävästi dataa laskemiseen....</div>'}
+  </script>
+	
+<style>
+  .droppi{position:relative;display:inline-block;background-color:#7fffd4;margin-right:50px}.droppiSisus{display:none;position:absolute;background-color:#f9f9f9;min-width:160px;box-shadow:0 8px 16px 0 rgba(0,0,0,.2);padding:12px 16px;z-index:1;font-weight:400;padding:10px 5px 10px 5px}.droppi:hover .droppiSisus{display:block}.autoHover:hover{background-color:#fff8dc;font-weight:800;cursor:pointer}.valikko{border:2px solid #000;padding:25px 25px 0 25px;display:flex;align-items:stretch;display:flex;align-items:stretch}.kysymykset{padding:25px 25px 25px 25px}.autoChoose{border:2px solid #7fffd4;width:25vw;height:5vh;background-color:#7fffd4}.autovalinta{border:2px solid #7fffd4;display:inline-block;padding:25px 25px 25px 25px;cursor:pointer;width:200px;height:5vh;background-color:#7fffd4;text-align:center;font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans",Verdana,sans-serif;font-size:18px;border-radius:5px;box-shadow:10px 10px 10px #585858;margin-right:20px;margin-top:20px;float:left}.autovalinta:hover{border:2px solid #000}.autovalintaValittu{box-shadow:2px 2px 2px #585858}.koko{font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans",Verdana,sans-serif;font-size:18px;width:50%}.otsake{left:10px;top:20px;bottom:10px;font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans",Verdana,sans-serif;font-size:18px;width:90vw;height:30px;float:left;margin-top:30px}.tietoSyotto{border:2px solid;display:inline-block;padding:25px 25px 25px 25px;cursor:pointer;width:200px;height:5vh;background-color:#fff8dc;text-align:center;font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans",Verdana,sans-serif;font-size:18px;border-radius:5px;box-shadow:5px 5px 5px #585858;margin-right:20px;margin-top:30px;float:left}#matkanKesto{position:relative;padding:25px 25px 25px 25px;width:90vw;border-radius:5px;color:#000;font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans",Verdana,sans-serif;font-size:18px;float:left;margin-top:20px;float:left}.tulosMuotoilu{margin-bottom:15px}
+  </style>
+<meta charset="UTF-8">
+<title>Laskenta</title>
+</head>
+
+<body>
+    <div class="valikko">
+
+        <div class="valinnat">
+            <div class="otsake">Valitse auto </div>
+            <div id="auto1" class="autovalinta" onClick="valinta('1')">Auto A <br> 3l / 100km</div>
+            <div id="auto2" class="autovalinta" onClick="valinta('2')">Auto B <br> 3.5l / 100km</div>
+            <div id="auto3" class="autovalinta" onClick="valinta('3')">Auto C<br>4l / 100km</div>
+
+            <div class="otsake">Matkan pituus ja autojen nopeudet</div>
+            <div class="tietoSyotto">Matka / km: <input type="number" id="matka" min="1" onChange="laske()" class="koko"></div>
+            <div class="tietoSyotto">Auton A nopeus<input type="number" id="autoA" min="1" onChange="laske()" class="koko"></div>
+            <div class="tietoSyotto">Auton B nopeus<input type="number" id="autoB" min="1" onChange="laske()" class="koko"></div>
+
+
+            <div id="matkanKesto"></div>
+        </div>
+    </div>
+    </div>
+
+</body>
+</html>
+  
